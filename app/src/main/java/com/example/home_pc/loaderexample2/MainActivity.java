@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<ArrayList<String>> loader, ArrayList<String> data) {
         Log.v("Tag", "deliver result");
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data);
+        mData = data;
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mData);
         listView.setAdapter(adapter);
     }
 
@@ -86,6 +87,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         contentValues.put(COLUMN_PET_NAME, "something");
         contentValues.put(COLUMN_PET_WEIGHT, "22");
         sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
+
+        mData.add("something");
+        adapter.notifyDataSetChanged();
     }
 
 }
